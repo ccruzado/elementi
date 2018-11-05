@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elementi-frontend
+  labels:
+    app: elementi-frontend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elementi-frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: elementi-frontend
+    spec:
+      containers:
+      - image: ccruzado/elementi
+        imagePullPolicy: Always
+        name: elementi-frontend
+        ports:
+        - containerPort: 80
+
